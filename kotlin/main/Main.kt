@@ -28,8 +28,6 @@ class Main : JavaPlugin() {
     }
 
     override fun onDisable() {
-        Bukkit.unloadWorld("pvpmap", false)
-
         println("Practice plugin disabled.")
     }
 }

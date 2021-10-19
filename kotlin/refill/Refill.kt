@@ -23,7 +23,11 @@ class Refill {
                 if(chestloc.block.type == Material.CHEST) {
                     val ch: Chest = chestloc.block.state as Chest
                     items.forEach { item ->
-                        ch.blockInventory.setItem(Random.randomSlot(27), item)
+                        var randomSlot = Random.randomSlot(27)
+                        if(ch.blockInventory.getItem(randomSlot)!=null) randomSlot = Random.randomSlot(27)
+
+
+                        ch.blockInventory.setItem(randomSlot, item)
                     }
                 }
             }
@@ -38,16 +42,27 @@ class Refill {
             //gapple
             if(Random.random(GetJSONDataDrop.get("gapple", "percent").toDouble())) itemlist.add(ItemStack(Material.GOLDEN_APPLE, GetJSONDataDrop.get("gapple", "amount")))
 
+            //blocks
+            if(Random.random(GetJSONDataDrop.get("blocks","plank","percent").toDouble())) itemlist.add(ItemStack(Material.OAK_PLANKS, GetJSONDataDrop.get("blocks", "plank", "amount")))
+
             //armor-iron
             if(Random.random(GetJSONDataDrop.get("armor", "iron","percent").toDouble())) {
                 if(Random.random(GetJSONDataDrop.get("armor","iron","boots","percent").toDouble())) itemlist.add(ItemStack(Material.IRON_BOOTS))
                 if(Random.random(GetJSONDataDrop.get("armor","iron","leggings","percent").toDouble())) itemlist.add(ItemStack(Material.IRON_LEGGINGS))
                 if(Random.random(GetJSONDataDrop.get("armor","iron","chestplate","percent").toDouble())) itemlist.add(ItemStack(Material.IRON_CHESTPLATE))
                 if(Random.random(GetJSONDataDrop.get("armor","iron","helmet","percent").toDouble())) itemlist.add(ItemStack(Material.IRON_HELMET))
-                if(Random.random(GetJSONDataDrop.get("blocks","plank","percent").toDouble())) itemlist.add(ItemStack(Material.OAK_PLANKS, GetJSONDataDrop.get("blocks", "plank", "amount")))
             }
 
             return itemlist
+        }
+
+        private fun randomSlot(ch: Chest): Int {
+            var randomSlot = Random.randomSlot(27)
+            if(ch.blockInventory.getItem(randomSlot)!=null) {
+                randomSlot = this.randomSlot(ch)
+            }
+
+            return randomSlot
         }
     }
 }
