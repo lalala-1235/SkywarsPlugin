@@ -25,7 +25,7 @@ class Refill {
                     items.forEach { item ->
                         var randomSlot = Random.randomSlot(27)
                         if(ch.blockInventory.getItem(randomSlot)!=null) randomSlot = Random.randomSlot(27)
-
+                        if(!ch.blockInventory.isEmpty) return
 
                         ch.blockInventory.setItem(randomSlot, item)
                     }

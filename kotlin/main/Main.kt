@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.WorldCreator
 import org.bukkit.plugin.java.JavaPlugin
 import commands.ResetWorld
+import listener.OnJoin
 import listener.PlayerDeath
 
 class Main : JavaPlugin() {
@@ -14,7 +15,6 @@ class Main : JavaPlugin() {
     }
 
     override fun onEnable() {
-        println("Practice plugin enabled.")
         plugin = this
 
         getCommand("queue")?.setExecutor(ManageQueue())
@@ -23,8 +23,11 @@ class Main : JavaPlugin() {
         Bukkit.createWorld(WorldCreator("pvpmap"))
 
         Bukkit.getPluginManager().registerEvents(PlayerDeath(), this)
+        Bukkit.getPluginManager().registerEvents(OnJoin(), this)
 
         Bukkit.getWorld("pvpmap")?.setAutoSave(false)
+
+        println("Practice plugin enabled.")
     }
 
     override fun onDisable() {
