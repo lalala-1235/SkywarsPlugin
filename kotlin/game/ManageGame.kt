@@ -7,6 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.scheduler.BukkitRunnable
 import refill.Refill
 import world.ResetWorld
 
@@ -30,19 +31,25 @@ class ManageGame {
             }
         }
 
-        fun end(playerlist: List<Player>) {
-            playerlist.forEach {
-                if(it.gameMode == GameMode.SURVIVAL) it.sendMessage("you won!")
+        fun end(playerlist: List<Player>, playerwon: Player) {
+            playerwon.sendMessage("VICTORY!")
 
-                it.setGameMode(GameMode.ADVENTURE)
-                it.inventory.clear()
+            val runnable = object: BukkitRunnable() {
+                override fun run() {
+                    playerlist.forEach {
+                        it.setGameMode(GameMode.ADVENTURE)
+                        it.inventory.clear()
 
-                it.setHealth(20.0)
-                it.setFoodLevel(20)
+                        it.setHealth(20.0)
+                        it.setFoodLevel(20)
 
-                it.teleport(Bukkit.getWorld("world")!!.spawnLocation)
+                        it.teleport(Bukkit.getWorld("world")!!.spawnLocation)
+                    }
+                    ResetWorld.reset(Bukkit.getWorld("pvpmap")!!, plugin)
+                }
             }
-            ResetWorld.reset(Bukkit.getWorld("pvpmap")!!, plugin)
+            runnable.runTaskLater(plugin, 3000)
+
         }
     }
 }
