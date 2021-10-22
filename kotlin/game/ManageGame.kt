@@ -8,6 +8,7 @@ import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
+import perk.PerkUse
 import refill.Refill
 import world.ResetWorld
 
@@ -25,6 +26,13 @@ class ManageGame {
 
                 playerlist.forEach {
                     it.setGameMode(GameMode.SURVIVAL)
+                    it.setHealth(20.0)
+                    it.setFoodLevel(20)
+                    it.activePotionEffects.forEach { effect ->
+                        it.removePotionEffect(effect.type)
+                    }
+
+                    PerkUse.useRush(it)
                 }
 
                 Refill.refill(GetChestLocation.get(Bukkit.getWorld("pvpmap")!!))
@@ -32,7 +40,7 @@ class ManageGame {
         }
 
         fun end(playerlist: List<Player>, playerwon: Player) {
-            playerwon.sendMessage("VICTORY!")
+            playerwon.sendTitle("승리했습니다!", "", 1, 20, 1)
 
             val runnable = object: BukkitRunnable() {
                 override fun run() {
@@ -43,12 +51,16 @@ class ManageGame {
                         it.setHealth(20.0)
                         it.setFoodLevel(20)
 
+                        it.activePotionEffects.forEach { effect ->
+                            it.removePotionEffect(effect.type)
+                        }
+
                         it.teleport(Bukkit.getWorld("world")!!.spawnLocation)
                     }
                     ResetWorld.reset(Bukkit.getWorld("pvpmap")!!, plugin)
                 }
             }
-            runnable.runTaskLater(plugin, 3000)
+            runnable.runTaskLater(plugin, 100)
 
         }
     }

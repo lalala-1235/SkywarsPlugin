@@ -23,9 +23,8 @@ class Refill {
                 if(chestloc.block.type == Material.CHEST) {
                     val ch: Chest = chestloc.block.state as Chest
                     items.forEach { item ->
-                        var randomSlot = Random.randomSlot(27)
-                        if(ch.blockInventory.getItem(randomSlot)!=null) randomSlot = Random.randomSlot(27)
-                        if(!ch.blockInventory.isEmpty) return
+                        val randomSlot = Random.randomSlot(27)
+                        if(ch.blockInventory.getItem(randomSlot)!=null) return@forEach
 
                         ch.blockInventory.setItem(randomSlot, item)
                     }

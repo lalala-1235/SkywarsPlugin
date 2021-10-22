@@ -15,3 +15,7 @@ commands:
   reset:
     description: reset "pvpmap" world, for test.
     usage: /reset
+
+  perks:
+    description: show perks.
+    usage: /perks

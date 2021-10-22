@@ -13,5 +13,6 @@ class OnJoin: Listener {
         val uuid = p.uniqueId
 
         PlayerPerkList.setPerk(uuid, Perk.BULDOZER, true)
+        PlayerPerkList.setPerk(uuid, Perk.RUSH, true)
     }
 }
