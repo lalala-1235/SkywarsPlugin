@@ -42,6 +42,7 @@ class ManageGame {
         fun end(playerlist: List<Player>, playerwon: Player) {
             playerwon.sendTitle("승리했습니다!", "", 1, 20, 1)
 
+
             val runnable = object: BukkitRunnable() {
                 override fun run() {
                     playerlist.forEach {

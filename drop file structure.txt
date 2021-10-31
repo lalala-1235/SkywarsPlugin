@@ -1,0 +1,12 @@
+pearl
+gapple
+blocks-plank
+(전부 amount, percent 포함)
+
+armor (amount 필요 없음)
+-iron => percent 포함
+  -boots
+  -leggings
+  -chestplate
+  -helmet
+    (전부 percent 포함)

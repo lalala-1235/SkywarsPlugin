@@ -19,3 +19,7 @@ commands:
   perks:
     description: show perks.
     usage: /perks
+
+  stats:
+    description: view stats.
+    usage: /stats

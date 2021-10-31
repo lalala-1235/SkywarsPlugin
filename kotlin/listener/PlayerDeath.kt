@@ -1,6 +1,7 @@
 package listener
 
 import game.ManageGame
+import main.Main
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -16,7 +17,10 @@ class PlayerDeath: Listener {
 
         val p: Player = e.entity
 
-        if(p.killer is Player) PerkUse.useBuldozer(checkNotNull(p.killer))
+        if(p.killer is Player) {
+            PerkUse.useBuldozer(checkNotNull(p.killer))
+            Main.kills[p.killer?.uniqueId.toString()] = Main.kills[p.killer?.uniqueId.toString()]!! + 1
+        }
 
         p.gameMode = GameMode.SPECTATOR
 

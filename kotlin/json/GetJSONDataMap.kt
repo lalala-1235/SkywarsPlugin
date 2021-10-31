@@ -1,7 +1,5 @@
 package json
 
-import org.json.simple.JSONObject
-
 class GetJSONDataMap {
     companion object {
         private val parse = ParseJSON.parse("./plugins/skywarsplugin/pvpmap.json")
